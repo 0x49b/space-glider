@@ -148,7 +148,7 @@ class Bomb {
         c.globalAlpha = this.alpha
         c.beginPath()
         c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-        c.strokeStyle = 'rgba(255,255,255,1)'
+        c.strokeStyle = `rgba(${this.color.r},${this.color.g},${this.color.b},1)`
         c.stroke()
         c.closePath()
         c.restore()
@@ -189,12 +189,29 @@ function init() {
     bombs = []
 }
 
-
+function shootProjectile() {
+    const angle = Math.atan2(
+        event.clientY - center.y,
+        event.clientX - center.x
+    )
+    const velocity = {
+        x: Math.cos(angle),
+        y: Math.sin(angle)
+    }
+    projectiles.push(
+        new Projectile(
+            center.x,
+            center.y,
+            5, { r: 255, g: 215, b: 20 },
+            velocity,
+            10
+        )
+    )
+}
 
 function spawnEnemies() {
-
     enemyInterval = setInterval(() => {
-        const radius = Math.random() * (30 - 5) + 5
+        const radius = Math.random() * (30 - 10) + 10
         let x, y
 
         if (Math.random() < 0.5) {
@@ -219,13 +236,40 @@ function spawnEnemies() {
     }, 900)
 }
 
+// Spawn a bomb
+function spawnBomb() {
+    if (bombCount != 0) {
+        bombCount--
+        bombsEl.innerHTML = bombCount
+
+        const angle = Math.atan2(
+            event.clientY - center.y,
+            event.clientX - center.x
+        )
+        const velocity = {
+            x: Math.cos(angle),
+            y: Math.sin(angle)
+        }
+        bombs.push(
+            new Bomb(
+                center.x,
+                center.y,
+                5, { r: 255, g: 0, b: 0 },
+                velocity,
+                10
+            )
+        )
+
+    }
+}
+
 // Animation Loop
 let animationId
 let score = 0;
 
 function animate() {
     animationId = requestAnimationFrame(animate)
-    c.fillStyle = 'rgba(0,0,0,0.1)'
+    c.fillStyle = 'rgba(0,0,0,0.2)'
     c.fillRect(0, 0, canvas.width, canvas.height)
     player.update()
 
@@ -253,7 +297,6 @@ function animate() {
             projectile.x - radius > canvas.width ||
             projectile.y + radius < 0 ||
             projectile.y - radius > canvas.height) {
-            console.log("remove projectile")
             setTimeout(() => {
                 projectiles.splice(projectileIndex, 1)
             }, 0)
@@ -356,50 +399,9 @@ function animate() {
 }
 
 
-function spawnBomb() {
-    if (bombCount != 0) {
-        bombCount--
-        bombsEl.innerHTML = bombCount
 
-        const angle = Math.atan2(
-            event.clientY - center.y,
-            event.clientX - center.x
-        )
-        const velocity = {
-            x: Math.cos(angle),
-            y: Math.sin(angle)
-        }
-        bombs.push(
-            new Bomb(
-                center.x,
-                center.y,
-                5, { r: 255, g: 215, b: 20 },
-                velocity,
-                10
-            )
-        )
-
-    }
-}
-
-shootingClickEvent = addEventListener('click', (event) => {
-    const angle = Math.atan2(
-        event.clientY - center.y,
-        event.clientX - center.x
-    )
-    const velocity = {
-        x: Math.cos(angle),
-        y: Math.sin(angle)
-    }
-    projectiles.push(
-        new Projectile(
-            center.x,
-            center.y,
-            5, { r: 255, g: 215, b: 20 },
-            velocity,
-            10
-        )
-    )
+addEventListener('click', (event) => {
+    shootProjectile()
 })
 
 
