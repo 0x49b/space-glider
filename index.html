@@ -4,22 +4,88 @@
     <meta charset="UTF-8" />
     <title>Canvas Boilerplate | Chris Courses</title>
     <link href="https://fonts.cdnfonts.com/css/furore" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/harabara" rel="stylesheet">
     <style>
       body {
         margin: 0;
-        /*overflow: hidden;*/
+        overflow: hidden;
+        font-family: 'Harabara', sans-serif;
+        background-color: rgba(0,0,0,0.9);
       }
-      div{
+      .score{
         position: fixed;
         font-family: 'Furore', sans-serif;
         color: white;
         top: 10px;
         left: 10px;
       }
+
+      .modal{
+        position: fixed;
+        background-color: rgba(0,0,0,0);
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        text-align:center;
+      }
+      .modal-inner{
+          background-color: #ffffff;
+          position:fixed;
+          top:50%;
+          left: 50%;
+          width: 400px;
+          height: 200px;
+          transform: translate(-50%, -50%);
+      }
+
+      .modal-score{
+          color: rgba(45, 52, 54,1.0);
+          font-size: 3em;
+          margin: 0;
+          padding: 20px 0 0 0 ;
+      }
+      .modal-points{
+         color: rgba(45, 52, 54,1.0);
+        font-size: 1.5em;
+          margin: 0;
+          padding: 0;
+      }
+      .modal-button{
+        color: rgba(236, 240, 241,1.0);
+        font-size: 1.5em;
+        width: 350px;
+        height: 50px;
+        background-color: rgba(52, 152, 219,1.0);
+        margin: 25px 0 0 0;
+        padding: 0;
+        border-radius: 50px;
+        border: none;
+        outline:none;
+        
+      }
+
+      .modal-button:active{
+        background-color: rgba(41, 128, 185,1.0);
+      }
     </style>
   </head>
   <body>
-    <div><span>Score: </span><span id="score">0</span></div>
+    <div class="score"><span>Score: </span><span id="score">0</span><span> Bombs: </span><span id="bombsEl">0</span></div>
+
+
+    <div class="modal" id="modalEl">
+    <div class="modal-inner">
+      <h1 class="modal-score" id="bigScoreEl">0</h1>
+      <p class="modal-points">Points</p>
+      <div>
+        <button class="modal-button" id="startGameBtn">Start Game</button>
+      </div>
+
+    </div>
+    </div>
+
+
     <canvas></canvas>
   </body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js" 
