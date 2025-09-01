@@ -1,0 +1,32 @@
+{
+  "name": "space-glider",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev": "webpack --config webpack.dev.js",
+    "start": "webpack --config webpack.config.js",
+    "build": "rimraf dist && webpack --config webpack.prod.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "gsap": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/preset-env": "^7.28.3",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.4.1",
+    "babel-preset-env": "^1.7.0",
+    "browser-sync": "^3.0.0",
+    "browser-sync-webpack-plugin": "^2.4.0",
+    "html-webpack-plugin": "^4.5.2",
+    "prettier": "^1.13.5",
+    "rimraf": "^5.0.10",
+    "webpack": "^4.47.0",
+    "webpack-cli": "^3.3.12"
+  }
+}
